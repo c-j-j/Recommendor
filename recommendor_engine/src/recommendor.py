@@ -1,4 +1,5 @@
 from math import sqrt
+import pickle
 
 
 def similarity_using_pearson(preferences, p1, p2):
@@ -68,26 +69,26 @@ def transform_preferences(preferences):
     return result
 
 
-def top_matches(preferences, person, number_of_recommendations=5, similarity=similarity_using_pearson):
+def top_matches(preferences, person, max_results=5, similarity=similarity_using_pearson):
     scores = [(similarity(preferences, person, other), other) for other in preferences if other != person]
 
     scores.sort()
     scores.reverse()
-    return scores[0:number_of_recommendations]
+    return scores[0:max_results]
 
 
-def calculate_similar_items(preferences, number_of_recommendations=10):
+def calculate_similar_items(preferences, max_number_of_similar_items=10):
     result = {}
 
     item_preferences = transform_preferences(preferences)
 
     for item in item_preferences:
-        scores = top_matches(item_preferences, item, number_of_recommendations=number_of_recommendations)
+        scores = top_matches(item_preferences, item, max_results=max_number_of_similar_items)
         result[item] = scores
     return result
 
 
-def get_recommended_items(preferences, item_match, user):
+def get_recommended_items(preferences, item_match, user,max_results=5):
     user_ratings = preferences[user]
     scores = {}
     total_similarity_scores = {}
@@ -111,8 +112,7 @@ def get_recommended_items(preferences, item_match, user):
 
     rankings.sort()
     rankings.reverse()
-    return rankings
-
+    return rankings[0:max_results]
 
 
 
