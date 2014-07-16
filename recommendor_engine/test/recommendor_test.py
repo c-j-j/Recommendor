@@ -35,14 +35,14 @@ class TestTransformPreferences(TestCase):
     def test_should_recommend_items(self):
         similar_items = calculate_similar_items(critics)
 
-        recommended_items= get_recommended_items(critics, similar_items, 'Toby')
-        self.assertEqual(recommended_items[0][1],'Lady in the Water')
+        recommended_items = get_recommended_items(critics, similar_items, 'Toby')
+        self.assertEqual(recommended_items[0][1], 'Lady in the Water')
 
     def test_pickle(self):
         similar_items = calculate_similar_items(critics)
         pickled_data = 'similar_items.dat'
-        pickle.dump(similar_items,open(pickled_data,'wb'))
-        pickled_similar_items = pickle.load(open(pickled_data,'rb'))
-        self.assertEqual(similar_items,pickled_similar_items)
+        pickle.dump(similar_items, open(pickled_data, 'wb'))
+        pickled_similar_items = pickle.load(open(pickled_data, 'rb'))
+        self.assertEqual(similar_items, pickled_similar_items)
 
         os.remove(pickled_data)

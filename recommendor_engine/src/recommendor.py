@@ -1,5 +1,4 @@
 from math import sqrt
-import pickle
 
 
 def similarity_using_pearson(preferences, p1, p2):
